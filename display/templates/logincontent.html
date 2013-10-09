@@ -1,0 +1,122 @@
+{% extends base_template|default:"base.html" %}
+
+{% block logincontent %}{% csrf_token %}
+{% if not login %}
+<div id="attachme">	
+	<form id="loginform" action="login" method="post">{% csrf_token %}
+		<input id="uname" class="search-query span2" name="username" type="text" placeholder="Username" />
+		<input id="pword" class="search-query span2" name="password" type="password" placeholder="Password" />
+		<!-- <div class="span2 ">  -->
+	
+		<!--	<label class="checkbox"  for="checkbox1"> Remember me
+				<input id="checkbox1" name="checked" type="checkbox" />
+				</label>
+		-->
+		<!-- </div>  -->
+		<input id="loginbut" type="button" class="btn " value="Log in" style="display:none"/ >
+		<script>
+			document.getElementById("loginbut").style.display = "inline-block";	
+		</script>
+		<script>
+			$('#pword').keypress(function(e) {
+        		if(e.which == 13) {
+            	jQuery(this).blur();
+            	jQuery('#loginbut').focus().click();
+            	return false; 
+        		}
+    		});
+		</script>
+
+						<script>
+						$.extend({
+  						reAjax : function(){//inurl,inlocation){
+							$.ajax({
+							type: "GET",
+							url: "/jinterface",
+							//url: inurl,
+							data: { },
+							success: function(data, textStatus) {
+        					if (data.redirect) {
+            				window.location.href = data.redirect;
+            				alert("Please Log in");
+        					}
+        					else {
+        					}
+    						}
+    						
+							})
+							.done(function( msg ) {
+							$("#displaycontent").replaceWith(msg);
+							//$(inlocation).replaceWith(msg);
+							});	
+						},
+						});
+						//
+						//
+						$('#loginbut').click(function() {
+							$.ajax({
+							type: "POST",
+							url: "jlogin",
+							data: { username: $('#uname').val(), password: $('#pword').val() }
+							})
+							.done(function( msg ) {
+							$("#attachme").replaceWith(msg);
+							var le  = $("#attachme").find('#loginform').length;
+							if(le!=0)
+							{
+							alert( "Wrong username or password" );	
+							}
+							else
+							{
+								var byName = $.getUrlVar('next');
+								if(typeof byName != 'undefined')
+								{
+								window.location.replace(byName);
+								}
+								else
+								{
+								//
+								$.reAjax();
+								//$.reAjaxed("/jinterface","#displaycontent");
+								}
+							}
+							});
+						});
+						</script>
+
+		<noscript>
+			<input type="hidden" name="nextpage" value="{{nextpage}}" id="nextpage"/>
+			<input class="btn" type="submit" value="Log inn" />
+		</noscript>
+	</form>
+</div>
+{% else %}
+<div id="attachme" class="form-inline">
+	<form id="logoutform" action="logout" method="post">{% csrf_token %}
+	<a class="non" href="#"><span class="brand">{{ username }}</span></a>
+	<!-- <a id="logoutbut" class="non" href="#" ><span class="btn btn-danger"> Log out</span></a> -->
+	<input id="logoutbut" class="btn btn-danger span1" value="Log out" style="display:none" />
+	<script>
+			document.getElementById("logoutbut").style.display = "inline-block";	
+	</script>
+	<script>
+		$('#logoutbut').click(function() {
+							$.ajax({
+							type: "POST",
+							url: "jlogout",
+							data: { username: "hola", password: "hola" }
+							})
+							.done(function( msg ) {
+							$("#attachme").replaceWith(msg);
+							//window.location.replace("/");
+							window.location.href = "/";
+							})
+						});
+	</script>
+	<noscript>
+			<input class="btn btn-danger " type="submit" value="Log outt" />
+	</noscript>
+	</form>
+</div>
+{% endif %}
+{% endblock %}	

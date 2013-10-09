@@ -1,0 +1,74 @@
+{% extends "logincontent.html" %}
+
+{% block dispcontent %}
+
+<div id="displaycontent">
+<script>
+$(document).ready(function() {
+	//$('#intfbtn').attr("href","");
+	$('#intfbtn').removeAttr("href");
+	$('#intfbtn').click(function() {
+		var myurl = "/jinterface";
+					$.ajax({
+							type: "GET",
+							url: "/jinterface",
+							data: { },
+							success: function(data, textStatus) {
+        					if (data.redirect) {
+            				window.location.href = data.redirect;
+            				//alert(data);
+        					}
+        					else {
+            				//alert(data);
+        					}
+    						}
+    						
+							})
+							.done(function( msg ) {
+							{% if logmein %}
+							$("#displaycontent").replaceWith(msg);
+							{% else %}
+							window.location.replace("/interface");
+							{% endif %}
+							
+							});	
+					
+	});
+	$( document ).ajaxError(function( event, request, settings ) {
+$( "#msg" ).append( "<li>Error requesting page " + settings.url + "</li>" );
+});
+
+});
+</script>
+
+   <div class="hero-unit">
+   	<div class="container">
+   		<h1>The Marketplace </h1>
+   		<br />
+   		<p>
+   			Lorem ipsum .... blah blah is all that we have
+   		</p>
+   		<br />
+   		<a id="intfbtn" class="btn-primary btn-large" href="/interface" >Check it out! </a>
+   	</div>
+   </div> <!-- End of hero-unit  -->
+   <div class="container row-fluid">
+   	<div class="span8 well">
+   		<p>
+   			 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nisi nisl, elementum sit amet velit et, porta egestas quam. Cras sagittis, nulla eget gravida mattis, ligula eros gravida sapien, at congue arcu augue at sapien. Vestibulum neque neque, luctus quis cursus vitae, tincidunt in lorem. Vestibulum porttitor sodales euismod. Quisque tempor urna ut eleifend mollis. Nunc id magna condimentum, tempor nulla quis, commodo eros. Nulla sit amet fringilla sapien. Praesent congue ornare ipsum, in imperdiet neque. Sed libero mauris, accumsan sit amet est sed, dignissim commodo dolor. Vivamus nisi turpis, laoreet ut ultrices ac, accumsan ut ante.
+
+Sed mollis id nibh ut viverra. Proin id orci nisl. Vestibulum tristique pulvinar egestas. Praesent sollicitudin erat at elit vestibulum, sed commodo leo auctor. Cras rutrum ligula at leo interdum, ac feugiat nibh viverra. Ut condimentum quis nisi id vulputate. Nullam porta quam ipsum, at scelerisque nulla molestie eget. Nulla facilisi. Praesent et purus id leo blandit placerat. Aliquam erat volutpat. Vivamus vulputate mi vel orci placerat adipiscing. Nam nulla nibh, imperdiet congue velit feugiat, mattis suscipit dolor. Pellentesque imperdiet metus orci, et feugiat augue euismod eu. Morbi vitae leo eget mauris sodales pretium.
+
+Quisque accumsan neque felis, sed tempor purus pretium id. Curabitur rhoncus, magna varius tempus imperdiet, enim erat accumsan purus, mattis tempor est ante in tellus. Etiam pellentesque eros augue, nec pulvinar diam consequat vitae. Sed malesuada augue dictum malesuada tempus. Etiam adipiscing interdum consectetur. Etiam vestibulum ante felis, id feugiat lacus mattis at. Integer consectetur aliquet lobortis. Donec tincidunt molestie tellus mollis dignissim. Phasellus congue nisl sed eros consequat, id vestibulum erat pulvinar. Proin feugiat sapien in eros tincidunt pharetra. Etiam tristique nunc nec lectus gravida congue. Duis id diam imperdiet, volutpat nisl eu, pretium felis. 
+   		</p>
+   	</div>
+   	<div class="span4 well">
+   		<p>
+ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nisi nisl, elementum sit amet velit et, porta egestas quam. Cras sagittis, nulla eget gravida mattis, ligula eros gravida sapien, at congue arcu augue at sapien. Vestibulum neque neque, luctus quis cursus vitae, tincidunt in lorem. Vestibulum porttitor sodales euismod. Quisque tempor urna ut eleifend mollis. Nunc id magna condimentum, tempor nulla quis, commodo eros. Nulla sit amet fringilla sapien. Praesent congue ornare ipsum, in imperdiet neque. Sed libero mauris, accumsan sit amet est sed, dignissim commodo dolor. Vivamus nisi turpis, laoreet ut ultrices ac, accumsan ut ante.
+
+Sed mollis id nibh ut viverra. Proin id orci nisl. Vestibulum tristique pulvinar egestas. Praesent sollicitudin erat at elit vestibulum, sed commodo leo auctor. Cras rutrum ligula at leo interdum, ac feugiat nibh viverra.    			
+   		</p>
+   	</div>
+   </div> <!-- end of middle-container -->
+</div> <!-- end of displaycontent -->
+{% endblock %}

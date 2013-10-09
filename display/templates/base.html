@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>The Marketplace</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <script type="text/javascript" src="/static/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/static/js/csrf.js"></script>
+    <script type="text/javascript" src="/static/js/getfromurl.js"></script>
+
+</head>
+<body>
+   <div class="navbar navbar-fixed-top">
+   		<div class="navbar-inner">
+   			<div class="container">
+   				<a href="#" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse" ><span class="icon-th-list"> </span></a>
+   				<a href="#" class="brand">The Marketplace</a>
+   				<ul class="nav">
+						<li><a href="#">About</a></li>
+						<li><a href="#">Contact</a> </li>
+						<li><a href="#">More</a> </li>
+   				</ul>
+					<div id="collapsable" class="nav-collapse collapse" style="height:auto">
+						<script>
+						document.getElementById("collapsable").style.height = "0"; 
+						</script>
+						<ul class="nav pull-right">
+							<li><div class="form-inline"> 
+
+								<!--  {% comment %}{% if logout%} {% endcomment%} -->
+								{% block logincontent%}
+								{% endblock %}
+														</div></li>
+						</ul>
+					</div>
+   			</div>
+   		</div>
+   </div> <!-- End of navbar -->
+   
+   	{% block dispcontent %}
+   	<div class="dispcontent">
+   	</div>
+    {% endblock %}
+   
+
+   	{% block footer %}
+   <div id="lastfooter" class="well"> <!-- Start of footer -->
+   <p>
+   	<ol>
+   		<li>copyrite</li>
+   		<li>copyrite </li>
+   	</ol>
+   </p>
+   <p>
+   	Subjected to Indian Judiciary. 
+   </p>	
+   </div> 	<!-- End of footer -->
+    {% endblock %}
+
+</body>
+</html>
