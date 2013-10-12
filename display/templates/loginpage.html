@@ -2,17 +2,112 @@
 
 
 {% block dispcontent %}
+<div id="displaycontent">
 <div class="hero-unit">
-	<h4>Sign up or Log in</h4>
+	<h2>Sign up or Log in</h2>
 <div class="row-fluid">
-<div class="span2"> </div>
-<div class="span4 well">
-	<p>Sign Up Form</p>	
+<!-- <div class="span2"> </div> -->
+<div class="span4 offset1 well">
+	        <form class="form-signin" action="signup" method="post">{% csrf_token %}
+        <h2 >Sign Up</h2>
+        <input class="input-block-level" type="text" name="username" placeholder="Email id" />
+        <input class="input-block-level" type="password" name="password" placeholder="Password" />
+        <input class="input-block-level" id="repword" type="password" name="repassword" placeholder="Retype Password" />
+        <a id="regbutton" class="btn btn-info btn-large" style="display:none;">Register</a>
+        <script>
+        document.getElementById("regbutton").style.display = "inline-block";
+        </script>
+        <noscript>
+            <input type="submit" class="submit btn btn-large btn-info" value="Register" name="" />
+        </noscript>
+
+        <script>
+    $('#repword').keypress(function(e) {
+        if(e.which == 13) {
+            jQuery(this).blur();
+            jQuery('#regbutton').focus().click();
+            return false; 
+       }
+    });
+        </script>
+
+        <br />
+        <br />
+        </form>
+
+</div> <!-- End of Sign up form -->
+
+<div class="span4 offset1 well"> <!-- Start of Log in Form -->
+	        <form class="form-signin" action="login" method="post">{% csrf_token %}
+        <h2 >Log In</h2>
+        <input class="input-block-level" id="mainuname" type="text" name="username" placeholder="Email id" />
+        <input class="input-block-level" id="mainpword" type="password" name="password" placeholder="Password" />
+        <label class="checkbox" for="#mainrememberme">
+            <input type="checkbox" id="mainrememberme" name="rememberme" value="checked" />
+            Remember Me
+        </label>
+        <a id="signbutton" class="btn btn-primary btn-large" style="display:none;">Sign In</a>
+        <script>
+        document.getElementById("signbutton").style.display = "inline-block";
+        </script>
+        <noscript>
+        <input type="submit" class="submit btn btn-large btn-primary" value="Sign In" name="" />
+        </noscript>
+
+        <script>
+    $('#mainpword').keypress(function(e) {
+        if(e.which == 13) {
+            jQuery(this).blur();
+            jQuery('#signbutton').focus().click();
+            return false; 
+       }
+    });
+        </script>
+        <br />
+        <br />
+        <a href="#"><small>Forgot password?</small></a>
+
+        </form>
+        <div id="hiddencontent" style="display:none;"> </div>
+        <script>
+
+        	$('#signbutton').click(function() {
+							$.ajax({
+							type: "POST",
+							url: "jlogin",
+							data: { username: $('#mainuname').val(), password: $('#mainpword').val() }
+							})
+							.done(function( msg ) {
+							$("#attachme").replaceWith(msg);
+							var le  = $("#attachme").find('#loginform').length;
+							if(le!=0)
+							{
+							alert( "Wrong username or password" );	
+							}
+							else
+							{
+								var byName = $.getUrlVar('next');
+								if(typeof byName != 'undefined')
+								{
+								window.location.replace(byName);
+								}
+								else
+								{
+							
+							
+								//
+								$.reAjax();
+								//$.reAjaxed("/jinterface","#displaycontent");
+								}
+							}
+							});
+						});
+        </script>
+
 </div>
-<div class="span4 well">
-	<p>Login Form</p>
-</div>
-<div class="span4"> </div>
-</div>
-</div>
+<!-- <div class="span4"> </div> -->
+
+</div> <!-- End of Row-fluid -->
+</div> <!-- End of Herounit -->
+</div> <!-- End of Displaycontent -->
 {% endblock %}

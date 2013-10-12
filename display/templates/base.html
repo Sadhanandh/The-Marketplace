@@ -8,6 +8,7 @@
     <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="/static/js/csrf.js"></script>
     <script type="text/javascript" src="/static/js/getfromurl.js"></script>
+    <script type="text/javascript" src="/static/js/holder.js"></script>
 
 </head>
 <body>
@@ -37,15 +38,18 @@
    			</div>
    		</div>
    </div> <!-- End of navbar -->
-   
+
+	<div class="place">
    	{% block dispcontent %}
    	<div class="dispcontent">
    	</div>
     {% endblock %}
+    </div> 
    
 
    	{% block footer %}
-   <div id="lastfooter" class="well"> <!-- Start of footer -->
+   <!-- <div style="margin-bottom: 120px"> </div> -->
+   <div id="lastfooter" class="well footer"> <!-- Start of footer -->
    <p>
    	<ol>
    		<li>copyrite</li>

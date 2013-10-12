@@ -2,5 +2,112 @@
 
 {% block dispcontent %}
 
+    <div class="dispcontent row-fluid">
+        
+        <div class="well" style="margin-top:60px;"> 
+            <form class="form-inline offset3" action="interface" method="post"> {% csrf_token %} 
+			<input id="atypeahead" type='text' name="search" autocomplete="off" class='ajax-typeahead span5' data-link='typehead' />
+			<button class="btn" id="subbtn" style="display:none;" onclick="return false;">Search</button>
+			<div class="btn-group " id="btngrp" style="display:none;">
+ 			<button class="btn dropdown-toggle" data-toggle="dropdown">
+				Sort By
+				<span class="caret"></span>
+			</button>
+			<ul id="dpbtn" class="dropdown-menu" role="menu">
+				<li><a href="#">Low - High</a></li>
+				<li><a href="#">High - Low</a></li>
+				<li><a href="#">Popularity</a></li>
+			</ul>
+			</div>
+            <noscript>
+            <input class="btn" type="submit" value="Search" />
+            <input type="hidden" name="page" value="{{page|default:"0"}}" id="page"/>
+            </noscript>
+	            <script>
+	           		 document.getElementById("subbtn").style.display = "inline-block";
+            </script>
+			<noscript>
+				<div class="btn-group ">
+	 			<button class="btn dropdown-toggle" data-toggle="dropdown">
+					Sort By
+					<span class="caret"></span>
+				</button>
+				<ul id="dpbtn" class="dropdown-menu" role="menu">
+					<li><a href="#">Low - High</a></li>
+					<li><a href="#">High - Low</a></li>
+					<li><a href="#">Popularity</a></li>
+				</ul>
+				</div>
+			</noscript>
+            <script>document.getElementById("btngrp").style.display = "inline-block";</script>
+		    </form>
+    		<script>
+    			$('#subbtn').click(function() {
+					$.ajax({
+							type: "GET",
+							url: "/jgetquery",
+							data: {search:$('#atypeahead').val(),page:$('#pageid').val() },
+							success: function(data, textStatus) {
+        					if (data.redirect) {
+            				window.location.href = data.redirect;
+        					}
+        					else {
+        					}}
+							})
+							.done(function( msg ) {
+							$("#queries").html(msg);
+							return false;
+							});	
+					
+	});	
+    		</script>
+
+
+        </div>
+    </div>
+    <script>
+        
+        $('.ajax-typeahead').typeahead({
+    source: function(query, process) {
+        return $.ajax({
+            url: $(this)[0].$element[0].dataset.link,
+            type: 'get',
+            data: {query: query},
+            dataType: 'json',
+            success: function(json) {
+                return typeof json.options == 'undefined' ? false : process(json.options);
+            }
+        });
+    }
+});
+    </script>
+   
+	<div class="row-fluid">
+	<div class="span2 bs-docs-sidebar">
+	<ul class="nav nav-list bs-docs-sidenav affix-top well"> <!--data-spy="affix" data-offset-top="400"-->
+      <li class="header"><h3>Category</h3></li>
+      <li class="active"><a href="#global"><i class="icon-chevron-right"></i> All</a></li>
+      <li><a href="#gridSystem"><i class="icon-chevron-right"></i> Groceries</a></li>
+      <li><a href="#fluidGridSystem"><i class="icon-chevron-right"></i> Dairy</a></li>
+      <li><a href="#layouts"><i class="icon-chevron-right"></i> Greens</a></li>
+      <li><a href="#responsive"><i class="icon-chevron-right"></i> Electronics</a></li>
+    </ul>	
+	</div>
+	<div class="span9 row-fluid">
+    <ul class="thumbnails" id="queries">
+	{% block queries %}
+    
+	{% endblock %}
+	</ul>
+	</div>
+	
+	<div class="span1 bs-docs-sidebar pull-left">
+	<ul class="nav nav-list bs-docs-sidenav affix-top well "data-spy="affix" data-offset-top="20">
+      <li class="active"><a href="#"><i class="icon-chevron-right"></i> Done</a></li>
+    </ul>	
+	</div>
+	
+	
+	</div>
 
 {% endblock %}

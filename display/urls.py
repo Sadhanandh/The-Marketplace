@@ -22,6 +22,8 @@ urlpatterns = patterns('',
 
     url(r'^interface$','searchmodule.views.interface_view'),
     url(r'^jinterface$','searchmodule.views.jinterface'),
+    url(r'^typehead$','searchmodule.views.typehead'),
+    url(r'^jgetquery$','searchmodule.views.jgetquery'),
     
 
     # Uncomment the admin/doc line below to enable admin documentation:

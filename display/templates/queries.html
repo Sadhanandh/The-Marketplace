@@ -1,0 +1,77 @@
+{% extends inner_template|default:"interface.html" %}
+{% block queries %}
+<script type="text/javascript" src="/static/js/holder.js"></script>
+                 <style>
+				.chk{padding:0px; margin:0px;position: absolute;}
+				.img{width:100px; height:100px;}
+				</style>
+
+    <!-- <div id="queries"> -->
+    <input type="hidden" id="pageid" value="{{page|default:"0"}}" />
+  <!-- Prev Thumbnails --> 
+  {% for element in data %}
+	{% with gid=forloop.counter %}  
+        <li class="span3">
+            <div class="thumbnail" id="th{{gid|add:pageval}}">
+           			<a id="a{{gid|add:pageval}}" class="aas">
+					<input id="chka{{gid|add:pageval}}"type="checkbox" name="check" class="chk" value="not">
+					<img  alt="Image Not Found" src="{{element.image}}" class="img"/>
+					
+
+                <div class= "caption row-fluid"> 
+                 <h3>{{element.name}}</h3>
+ <!-- TODO-->   <p>
+ 					<a id="modallink{{gid|add:pageval}}" href="/mymodelpage{{gid|add:pageval}}" role="button" data-toggle="modal">{{element.desc}}</a>
+ 				</p>
+	                 <!-- Start of Modal -->
+	              <p>
+					<div id="myModal{{gid|add:pageval}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+							<h3 id="myModalLabel{{gid|add:pageval}}">{{element.name}}</h3>
+						</div>
+						<div class="modal-body">
+							<p>{{element.desc}}</p>
+						</div>
+						<div class="modal-footer">
+							<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+						</div>
+					</div>
+					<!-- End of Modal -->
+					</p>
+		            <script>document.getElementById("modallink{{gid|add:pageval}}").href = "#myModal{{gid|add:pageval}}";</script>
+
+					<p>
+                   <div class="input-prepend">
+				    <label>	MRP : 
+				    <span class="add-on">$</span>
+				    <input class="span4" id="dull" type="text" placeholder="{{element.mrp}}" disabled />
+					</label>
+				    </div>
+                   
+				    <div class="input-prepend ">
+				    <label>	CPR : 
+				    <span class="add-on">$</span>
+				    <input class="span4" id="active" type="text" placeholder="{{element.crp}}" />
+					</label>
+				    </div>
+				   </p>
+
+                </div> <!-- End of Caption -->
+                </a>
+            </div>
+        </li>
+        {% endwith %}
+        {% endfor %}
+  	                 	<script>
+	             $(document).ready(function() {
+				$('.aas').click(function(){
+				        var chkbox = document.getElementById("chk"+this.id);
+				        chkbox.checked = !chkbox.checked;
+				});});
+                 	</script>
+
+
+    <!-- </ul>  <!-- End of thumbnails --> 
+    <!-- </div> <!-- End of queries --> 
+	{% endblock %}
