@@ -1,7 +1,7 @@
 # Create your views here.
 from django import template
 from django.contrib.auth.decorators import login_required
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, Http404
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from models import Publicdb
@@ -16,6 +16,7 @@ class Data:
         self.mrp = "50"
         self.crp = "50"
         self.image = "/static/js/holder.js/300x200"
+        self.id = "3"
 
     def Name(self):
         return self.name
@@ -27,6 +28,8 @@ class Data:
         return self.crp
     def Url(self):
         return self.image
+    def Id(self):
+        return self.id
 
 
     
@@ -73,4 +76,11 @@ def jgetquery(request):
             data = [Data()]*int(search)
             
     return render_to_response('queries.html',{"data":data,"page":pageno,"pageval":pageval,"inner_template":"ajax.html","username":request.user.username,"login": request.user.is_authenticated() },context_instance=RequestContext(request))
-        
+
+@login_required()
+def item(request,id):
+    #getid
+    if False:#id not in getid
+        raise Http404()
+    data = Data()
+    return render_to_response('item.html',{"element":data,"username":request.user.username,"login": request.user.is_authenticated() },context_instance=RequestContext(request))

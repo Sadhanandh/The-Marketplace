@@ -1,0 +1,15 @@
+{% extends "logincontent.html" %}
+
+{% block dispcontent %}
+<div class="hero-unit"><h1> {{element.Name}} </h1></div>
+<div class="row-fluid">
+<div class="offset1">
+<h3>{{element.Name}}</h3>
+<p><img  alt="Image Not Found" src="{{element.Url}}" /></p>
+<p>MRP : {{element.Mrp}}</p>
+<p>CRP : {{element.Crp}}</p>
+<p>{{ element.Desc}}</p>
+<p>Id  : {{ element.Id }}</p>
+</div>
+</div>
+{% endblock %}
