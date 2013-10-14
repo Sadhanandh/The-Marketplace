@@ -33,9 +33,9 @@
 					<span class="caret"></span>
 				</button>
 				<ul id="dpbtn" class="dropdown-menu" role="menu">
-					<li><a href="#">Low - High</a></li>
-					<li><a href="#">High - Low</a></li>
-					<li><a href="#">Popularity</a></li>
+					<li><a href="#low-high">Low - High</a></li>
+					<li><a href="#high-low">High - Low</a></li>
+					<li><a href="#popularity">Popularity</a></li>
 				</ul>
 				</div>
 			</noscript>
@@ -84,14 +84,20 @@
    
 	<div class="row-fluid">
 	<div class="span2 bs-docs-sidebar">
-	<ul class="nav nav-list bs-docs-sidenav affix-top well"> <!--data-spy="affix" data-offset-top="400"-->
+	<ul class="nav nav-list bs-docs-sidenav affix-top well" id="lsidebar"> <!--data-spy="affix" data-offset-top="400"-->
       <li class="header"><h3>Category</h3></li>
       <li class="active"><a href="#global"><i class="icon-chevron-right"></i> All</a></li>
-      <li><a href="#gridSystem"><i class="icon-chevron-right"></i> Groceries</a></li>
-      <li><a href="#fluidGridSystem"><i class="icon-chevron-right"></i> Dairy</a></li>
-      <li><a href="#layouts"><i class="icon-chevron-right"></i> Greens</a></li>
-      <li><a href="#responsive"><i class="icon-chevron-right"></i> Electronics</a></li>
+      <li><a href="#groceries"><i class="icon-chevron-right"></i> Groceries</a></li>
+      <li><a href="#diary"><i class="icon-chevron-right"></i> Dairy</a></li>
+      <li><a href="#greens"><i class="icon-chevron-right"></i> Greens</a></li>
+      <li><a href="#electronics"><i class="icon-chevron-right"></i> Electronics</a></li>
     </ul>	
+    <script>
+    	$('#lsidebar > li').click(function(){
+    		$('#lsidebar > .active').removeClass("active");
+    		$(this).addClass("active");
+    	});
+    </script>
 	</div>
 	<div class="span9 row-fluid">
     <ul class="thumbnails" id="queries">
@@ -103,7 +109,7 @@
 	
 	<div class="span1 bs-docs-sidebar pull-left">
 	<ul class="nav nav-list bs-docs-sidenav affix-top well "data-spy="affix" data-offset-top="20">
-      <li class="active"><a href="#"><i class="icon-chevron-right"></i> Done</a></li>
+      <li class="active"><a href="#done"><i class="icon-chevron-right"></i> Done</a></li>
     </ul>	
 	</div>
 	

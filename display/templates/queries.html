@@ -15,23 +15,26 @@
             <div class="thumbnail" id="th{{gid|add:pageval}}">
            			<a id="a{{gid|add:pageval}}" class="aas">
 					<input id="chka{{gid|add:pageval}}"type="checkbox" name="check" class="chk" value="not">
-					<img  alt="Image Not Found" src="{{element.image}}" class="img"/>
+					<img  alt="Image Not Found" src="{{element.Url}}" class="img"/>
 					
 
                 <div class= "caption row-fluid"> 
-                 <h3>{{element.name}}</h3>
+                 <h3>{{element.Name}}</h3>
  <!-- TODO-->   <p>
- 					<a id="modallink{{gid|add:pageval}}" href="/mymodelpage{{gid|add:pageval}}" role="button" data-toggle="modal">{{element.desc}}</a>
+ 					<a id="modallink{{gid|add:pageval}}" href="/mymodelpage{{gid|add:pageval}}" role="button" data-toggle="modal">{{element.Desc|slice:":50"}}</a>
  				</p>
 	                 <!-- Start of Modal -->
 	              <p>
 					<div id="myModal{{gid|add:pageval}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h3 id="myModalLabel{{gid|add:pageval}}">{{element.name}}</h3>
+							<h3 id="myModalLabel{{gid|add:pageval}}">{{element.Name}}</h3>
 						</div>
 						<div class="modal-body">
-							<p>{{element.desc}}</p>
+							<p><img  alt="Image Not Found" src="{{element.Url}}" /></p>
+							<p>MRP : {{element.Mrp}}</p>
+							<p>CRP : {{element.Crp}}</p>
+							<p>{{element.Desc}}</p>
 						</div>
 						<div class="modal-footer">
 							<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -45,14 +48,14 @@
                    <div class="input-prepend">
 				    <label>	MRP : 
 				    <span class="add-on">$</span>
-				    <input class="span4" id="dull" type="text" placeholder="{{element.mrp}}" disabled />
+				    <input class="span4" id="dull" type="text" placeholder="{{element.Mrp}}" disabled />
 					</label>
 				    </div>
                    
 				    <div class="input-prepend ">
 				    <label>	CPR : 
 				    <span class="add-on">$</span>
-				    <input class="span4" id="active" type="text" placeholder="{{element.crp}}" />
+				    <input class="span4" id="active" type="text" placeholder="{{element.Crp}}" />
 					</label>
 				    </div>
 				   </p>

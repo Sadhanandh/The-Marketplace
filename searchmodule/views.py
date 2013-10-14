@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+from models import Publicdb
 import json
 
 register = template.Library()
@@ -16,15 +17,15 @@ class Data:
         self.crp = "50"
         self.image = "/static/js/holder.js/300x200"
 
-    def name(self):
-        return self.data
-    def desc(self):
+    def Name(self):
+        return self.name
+    def Desc(self):
         return self.desc
-    def mrp(self):
+    def Mrp(self):
         return self.mrp
-    def crp(self):
+    def Crp(self):
         return self.crp
-    def image(self):
+    def Url(self):
         return self.image
 
 
@@ -33,6 +34,7 @@ class Data:
 def interface_view(request):
     data = None
     data = [Data()]*3
+    data = Publicdb.objects.all()
     search = request.POST.get("search",None)
     pageno = request.POST.get("page",None)
     pageval = 1000
@@ -43,7 +45,10 @@ def interface_view(request):
 
 @login_required()
 def jinterface(request):
-    return render_to_response('queries.html',{"base_template":"ajax.html","username":request.user.username,"login": request.user.is_authenticated() },context_instance=RequestContext(request))
+    data = Publicdb.objects.all()
+    pageno = 0
+    pageval = 1000
+    return render_to_response('queries.html',{"base_template":"customajax.html","data":data,"page":pageno,"pageval":pageval,"username":request.user.username,"login": request.user.is_authenticated() },context_instance=RequestContext(request))
 
 @login_required()
 def typehead(request):
