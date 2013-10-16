@@ -44,6 +44,8 @@ def login_view(request):
         nextpage = request.POST.get("nextpage",None)
     if(nextpage!=None and logmein):
         return HttpResponseRedirect(nextpage)
+    if(nextpage==None and logmein):
+        return HttpResponseRedirect('/interface')
     return render_to_response('loginpage.html',{"username":username,"login":logmein,"nextpage":nextpage},context_instance=RequestContext(request))
 
 def jlogin(request):

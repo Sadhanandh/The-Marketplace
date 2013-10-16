@@ -4,6 +4,7 @@
                  <style>
 				.chk{padding:0px; margin:0px;position: absolute;}
 				.img{width:100px; height:100px;}
+				.pdesc {line-height: 1.5em;height: 3em;overflow: hidden;}
 				</style>
 
     <!-- <div id="queries"> -->
@@ -15,14 +16,15 @@
             <div class="thumbnail" id="th{{gid|add:pageval}}">
            			<a id="a{{gid|add:pageval}}" class="aas">
 					<input id="chka{{gid|add:pageval}}"type="checkbox" name="check" class="chk" value="not">
-					<img  alt="Image Not Found" src="{{element.Url}}" class="img"/>
+					<img  alt="Image Not Found" src="{{element.Url}}"  height="300" width="200" class="img"/>
 					
 
                 <div class= "caption row-fluid"> 
                  <h3>{{element.Name}}</h3>
- <!-- TODO-->   <p>
+ <!-- TODO-->   <p class="pdesc">
  					<a id="modallink{{gid|add:pageval}}" href="/item{{element.Id}}" target="_blank" role="button" data-toggle="modal">{{element.Desc|slice:":50"}}</a>
  				</p>
+ 				<p class="pdesc">{{element.Qty}}</p>
 	                 <!-- Start of Modal -->
 	              <p>
 					<div id="myModal{{gid|add:pageval}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -34,6 +36,7 @@
 							<p><img  alt="Image Not Found" src="{{element.Url}}" /></p>
 							<p>MRP : {{element.Mrp}}</p>
 							<p>CRP : {{element.Crp}}</p>
+							<p>{{element.Qty}}</p>
 							<p>{{element.Desc}}</p>
 						</div>
 						<div class="modal-footer">
