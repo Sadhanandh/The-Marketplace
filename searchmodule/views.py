@@ -11,6 +11,9 @@ import json
 
 register = template.Library()
 
+LENGTH = 80
+TLENGTH = 30
+
 class Data:
     def __init__(self):
         self.name = "Parle G"
@@ -40,20 +43,20 @@ class Data:
     
 @login_required()
 def interface_view(request):
-    data = None
     data = [Data()]*3
-    data = Publicdb.objects.all()
     search = request.POST.get("search",None)
     pageno = request.POST.get("page",None)
     pageval = 1000
     if search !=None:
         q = Publicdb.objects.filter(Q(Name__icontains=search)|Q(Desc__icontains=search))
-        data = q
+        data = q[:LENGTH]
+    else:
+        data = Publicdb.objects.all()[:LENGTH]
     return render_to_response('queries.html',{"data":data,"page":pageno,"pageval":pageval,"username":request.user.username,"login": request.user.is_authenticated() },context_instance=RequestContext(request))
 
 @login_required()
 def jinterface(request):
-    data = Publicdb.objects.all()
+    data = Publicdb.objects.all()[:LENGTH]
     pageno = 0
     pageval = 1000
     return render_to_response('queries.html',{"base_template":"customajax.html","data":data,"page":pageno,"pageval":pageval,"username":request.user.username,"login": request.user.is_authenticated() },context_instance=RequestContext(request))
@@ -67,7 +70,7 @@ def typehead(request):
         q = Publicdb.objects.filter(Name__icontains=qry).order_by("Name").values("Name")
         for subq in q:
             out.add(subq["Name"])
-        json_data = json.dumps({"options":list(out)})
+        json_data = json.dumps({"options":list(out)[:TLENGTH]})
     return HttpResponse(json_data,content_type="application/json")
 
 @login_required()
@@ -81,7 +84,7 @@ def jgetquery(request):
         data = [Data()]*int(search[5:])
     elif search !=None:
         q = Publicdb.objects.filter(Q(Name__icontains=search)|Q(Desc__icontains=search))
-        data = q
+        data = q[:LENGTH]
     
             
     return render_to_response('queries.html',{"data":data,"page":pageno,"pageval":pageval,"inner_template":"ajax.html","username":request.user.username,"login": request.user.is_authenticated() },context_instance=RequestContext(request))
