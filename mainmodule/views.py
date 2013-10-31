@@ -1,7 +1,8 @@
 # Create your views here.
 from django.contrib.auth import authenticate, login, logout
-from django.http.response import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.contrib.auth.models import User
+from django.http.response import HttpResponseRedirect, HttpResponseNotAllowed
+from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 #from django.views.decorators.csrf import csrf_protect
 #from authmodule import authenticate,login,logout,get_username
@@ -69,3 +70,18 @@ def jlogout(request):
     logout(request)
     logmein = request.user.is_authenticated()
     return render_to_response('logincontent.html',{"base_template":"ajax.html" ,"username":guest,"login":logmein},context_instance=RequestContext(request))
+
+def register(request):
+    us = request.POST.get("username",None)
+    pa = request.POST.get("password",None)
+    pa1 = request.POST.get("repassword",None)
+    if us!=None and pa!=None and pa!=None and pa==pa1:
+        try:
+            u  = User.objects.create_user(us,us,pa)
+            u.save()
+            return redirect("mainmodule.views.login_view")
+        except Exception:
+            return HttpResponseNotAllowed("User name exists.Try again!")
+        
+    else:
+        return HttpResponseNotAllowed("Enter username and password")

@@ -14,6 +14,7 @@ urlpatterns = patterns('',
 
     url(r'^$','mainmodule.views.main_view'),
     url(r'^login$','mainmodule.views.login_view'),
+    url(r'^signup$','mainmodule.views.register'),
     url(r'^jlogin$','mainmodule.views.jlogin'),
     url(r'^logout$','mainmodule.views.logout_view'),
     url(r'^jlogout$','mainmodule.views.jlogout'),

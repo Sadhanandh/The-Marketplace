@@ -10,8 +10,8 @@
 <div class="span4 offset1 well">
 	        <form class="form-signin" action="signup" method="post">{% csrf_token %}
         <h2 >Sign Up</h2>
-        <input class="input-block-level" type="text" name="username" placeholder="Email id" />
-        <input class="input-block-level" type="password" name="password" placeholder="Password" />
+        <input class="input-block-level" id="rname" type="text" name="username" placeholder="Email id" />
+        <input class="input-block-level" id="rpass" type="password" name="password" placeholder="Password" />
         <input class="input-block-level" id="repword" type="password" name="repassword" placeholder="Retype Password" />
         <a id="regbutton" class="btn btn-info btn-large" style="display:none;">Register</a>
         <script>
@@ -29,6 +29,32 @@
             return false; 
        }
     });
+        </script>
+
+         <script>
+
+        	$('#regbutton').click(function() {
+							$.ajax({
+							type: "POST",
+							url: "signup",
+							data: { username: $('#rname').val(), password: $('#rpass').val(), repassword: $('#repword').val() }
+							})
+							.done(function( msg ) {
+							$("#attachme").replaceWith(msg);
+							var le  = $("#attachme").find('#loginform').length;
+							if(le!=0)
+							{
+							alert( "Registered. Login to Continue" );	
+							}
+							else
+							{
+								
+								alert( "existing username or incorrect password" );	
+								//$.reAjaxed("/jinterface","#displaycontent");
+						
+							}
+							});
+						});
         </script>
 
         <br />
